@@ -16,5 +16,5 @@ window.CARTAO = {
   mensagemWhatsapp: "Olá, Letícia! Gostaria de agendar um atendimento.",
   instagram: "",           // sem o @
   email: "leticiabernucci@gmail.com",
-  link: "https://rduartefrancielly-blip.github.io/catalogo-Life-atelie/fisioterapia/cartao/"
+  link: "https://lbfisioterapia.github.io/cartao/"
 };
