@@ -14,6 +14,12 @@
   const linkInstagram = () => C.instagram ? "https://instagram.com/" + C.instagram.replace(/^@/, "") : "";
   const linkEmail = () => C.email ? "mailto:" + C.email : "";
   const linkTelefone = () => C.telefone ? "tel:+55" + soDigitos(C.telefone) : "";
+  // Endereço do cartão: o informado em dados.js ou, se vazio, o endereço onde a página está aberta.
+  function linkCartao() {
+    if (C.link) return C.link;
+    if (!/^https?:$/.test(location.protocol)) return "";
+    return location.origin + location.pathname.replace(/index\.html$/, "");
+  }
 
   const ICONES = {
     whatsapp: '<path d="M4.5 19.5 5.6 16A8 8 0 1 1 8.4 18.6z"/><path d="M9.2 9.3c.3 1.9 1.6 3.8 3.6 4.7l1.1-1.1 1.8.8c-.2 1-1 1.6-2 1.5-2.9-.4-5.3-2.8-5.7-5.7-.1-1 .5-1.8 1.5-2l.8 1.8z"/>',
@@ -48,12 +54,12 @@
       C.telefone || C.whatsapp ? "TEL;TYPE=CELL:+55" + soDigitos(C.telefone || C.whatsapp) : "",
       C.email ? "EMAIL;TYPE=INTERNET:" + C.email : "",
       C.instagram ? "URL:" + linkInstagram() : "",
-      C.link ? "URL:" + C.link : "",
+      linkCartao() ? "URL:" + linkCartao() : "",
       "NOTE:" + esc([C.mensagem, (C.servicos || []).join(", "), C.atendimento, C.cidade].filter(Boolean).join(" · ")),
       "END:VCARD"
     ].filter(Boolean);
     return linhas.join("\r\n") + "\r\n";
   }
 
-  window.Cartao = { C, soDigitos, telefoneFormatado, linkWhatsapp, linkInstagram, linkEmail, linkTelefone, icone, vcard };
+  window.Cartao = { C, soDigitos, telefoneFormatado, linkWhatsapp, linkInstagram, linkEmail, linkTelefone, linkCartao, icone, vcard };
 })();
